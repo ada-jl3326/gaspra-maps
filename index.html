@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gaspra: interactive impact maps</title>
+<style>
+  :root { --ink: #1d1d1b; --muted: #5c5c58; --bg: #ffffff; --line: #e4e1da;
+          --l1: #fecc5c; --l2: #fd8d3c; --l3: #f03b20; --l4: #bd0026; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .scale { display: flex; height: 10px; }
+  .scale span { flex: 1; }
+  main { max-width: 680px; margin: 0 auto; padding: 28px 18px 40px; }
+  h1 { font-size: clamp(28px, 7vw, 40px); line-height: 1.1; margin: 0 0 8px; }
+  .lead { color: var(--muted); margin: 0 0 24px; }
+  a.card { display: block; text-decoration: none; color: inherit;
+           border: 1px solid var(--line); border-left: 8px solid var(--c);
+           border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; }
+  a.card:hover, a.card:focus-visible { background: #faf8f4; outline: none; }
+  a.card h2 { font-size: 20px; margin: 0 0 4px; }
+  a.card p { margin: 0; color: var(--muted); }
+  a.card .go { display: inline-block; margin-top: 8px; font-weight: 600; color: var(--l4); }
+  .how { margin-top: 26px; font-size: 15px; }
+  .how li { margin-bottom: 4px; }
+  footer { margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--line);
+           font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="scale"><span style="background:var(--l1)"></span><span style="background:var(--l2)"></span><span style="background:var(--l3)"></span><span style="background:var(--l4)"></span></div>
+<main>
+  <h1>Deep Impact: interactive maps</h1>
+  <p class="lead">Airblast damage from a small asteroid entering the atmosphere above London, and the risk to each area over many possible impacts. Group Gaspra, Applying Computational &amp; Data Science, Imperial College London.</p>
+
+  <a class="card" href="scenario.html" style="--c: var(--l4)">
+    <h2>One impact, step by step</h2>
+    <p>Ground track from atmospheric entry to surface zero, and the four airblast damage zones for an oblique entry.</p>
+    <span class="go">Open map &rarr;</span>
+  </a>
+
+  <a class="card" href="compare.html" style="--c: var(--l3)">
+    <h2>Circle or ellipse?</h2>
+    <p>The same impact with circular and elliptical damage zones: the direction of travel changes which neighbourhoods are hit.</p>
+    <span class="go">Open map &rarr;</span>
+  </a>
+
+  <a class="card" href="risk.html" style="--c: var(--l2)">
+    <h2>Risk map: 50,000 possible impacts</h2>
+    <p>Chance that each postcode sector lies inside the 27 kPa damage zone, where wooden buildings collapse.</p>
+    <span class="go">Open map &rarr;</span>
+  </a>
+
+  <ul class="how">
+    <li>Tap a damage zone to see what happens there and how many people live inside; tap a risk dot for its probability.</li>
+    <li>Use the layer button (top right) to switch damage levels on and off.</li>
+    <li>Pinch to zoom into your own street.</li>
+  </ul>
+
+  <footer>Maps made with folium. Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors. Population: 2011 UK census grid.</footer>
+</main>
+</body>
+</html>

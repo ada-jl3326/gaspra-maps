@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_8986cf87540be004156e3e18469536ee {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    
+            
+        
+    
+            
+        
+<style>@media (max-width: 600px) {div[style*="position: fixed"] {font-size: 10px !important; left: 8px !important; bottom: 22px !important; padding: 4px 6px !important; max-width: 64vw;}}</style>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_8986cf87540be004156e3e18469536ee" ></div>
+        
+    <div style="position: fixed; bottom: 30px; left: 30px; z-index: 9999; background: white; padding: 8px 10px; border: 1px solid grey; border-radius: 4px; font-size: 13px;"><b>Airblast damage level</b><div><span style="background:#fecc5c; width:14px; height:14px; display:inline-block; margin-right:6px;"></span>1: 1 kPa, About 10% of glass windows shatter</div><div><span style="background:#fd8d3c; width:14px; height:14px; display:inline-block; margin-right:6px;"></span>2: 3.5 kPa, About 90% of glass windows shatter</div><div><span style="background:#f03b20; width:14px; height:14px; display:inline-block; margin-right:6px;"></span>3: 27 kPa, Trees and wood buildings flattened</div><div><span style="background:#bd0026; width:14px; height:14px; display:inline-block; margin-right:6px;"></span>4: 43 kPa, Multistorey brick buildings collapse</div></div>
+</body>
+<script>
+    
+    
+            var map_8986cf87540be004156e3e18469536ee = L.map(
+                "map_8986cf87540be004156e3e18469536ee",
+                {
+                    center: [50.17217640739274, -5.125723711593253],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_8986cf87540be004156e3e18469536ee);
+
+            
+
+        
+    
+            var tile_layer_4e487ec28b67dacec0a984daeb2c3fe2 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_4e487ec28b67dacec0a984daeb2c3fe2.addTo(map_8986cf87540be004156e3e18469536ee);
+        
+    
+            var feature_group_2e616c52004e520995721df2ff60ef1c = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_071f9ed7bfcc4b3a6d255f86efc4fbd3 = L.circle(
+                [50.17217640739274, -5.125723711593253],
+                {"bubblingMouseEvents": true, "color": "#fecc5c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fecc5c", "fillOpacity": 0.25, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 260056.59054120025, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2e616c52004e520995721df2ff60ef1c);
+        
+    
+        var popup_f5628968901f6987c9718f41d4b00519 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_15ae66748fcbff251b96385a5b66b7e7 = $(`<div id="html_15ae66748fcbff251b96385a5b66b7e7" style="width: 100.0%; height: 100.0%;"><b>Damage level 1: 1 kPa</b><br>About 10% of glass windows shatter<br>Radius: 260.1 km<br>Population inside: 6,791,081</div>`)[0];
+                popup_f5628968901f6987c9718f41d4b00519.setContent(html_15ae66748fcbff251b96385a5b66b7e7);
+            
+        
+
+        circle_071f9ed7bfcc4b3a6d255f86efc4fbd3.bindPopup(popup_f5628968901f6987c9718f41d4b00519)
+        ;
+
+        
+    
+    
+            circle_071f9ed7bfcc4b3a6d255f86efc4fbd3.bindTooltip(
+                `<div>
+                     Level 1: 1 kPa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_2e616c52004e520995721df2ff60ef1c.addTo(map_8986cf87540be004156e3e18469536ee);
+        
+    
+            var feature_group_927cd9cdb839b0593838e8f6960d80c1 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_1b4de2d1bd868dc0b2978854a6d29c26 = L.circle(
+                [50.17217640739274, -5.125723711593253],
+                {"bubblingMouseEvents": true, "color": "#fd8d3c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fd8d3c", "fillOpacity": 0.25, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 94858.62668863364, "stroke": true, "weight": 2}
+            ).addTo(feature_group_927cd9cdb839b0593838e8f6960d80c1);
+        
+    
+        var popup_b4db2c3717f9f945a17d13d1a9900efb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_22738863dab49ef931ebb11d644fa49b = $(`<div id="html_22738863dab49ef931ebb11d644fa49b" style="width: 100.0%; height: 100.0%;"><b>Damage level 2: 3.5 kPa</b><br>About 90% of glass windows shatter<br>Radius: 94.9 km<br>Population inside: 870,591</div>`)[0];
+                popup_b4db2c3717f9f945a17d13d1a9900efb.setContent(html_22738863dab49ef931ebb11d644fa49b);
+            
+        
+
+        circle_1b4de2d1bd868dc0b2978854a6d29c26.bindPopup(popup_b4db2c3717f9f945a17d13d1a9900efb)
+        ;
+
+        
+    
+    
+            circle_1b4de2d1bd868dc0b2978854a6d29c26.bindTooltip(
+                `<div>
+                     Level 2: 3.5 kPa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_927cd9cdb839b0593838e8f6960d80c1.addTo(map_8986cf87540be004156e3e18469536ee);
+        
+    
+            var feature_group_ccfd5cde970dac5c22f8d8e05e038a7c = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_902d1c6b1821792a40a69788715933a7 = L.circle(
+                [50.17217640739274, -5.125723711593253],
+                {"bubblingMouseEvents": true, "color": "#f03b20", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f03b20", "fillOpacity": 0.25, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17346.82095192572, "stroke": true, "weight": 2}
+            ).addTo(feature_group_ccfd5cde970dac5c22f8d8e05e038a7c);
+        
+    
+        var popup_8a41e71bea0283d6346a4ef3e11b883b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c79a6873ef1a24d76674c66436f8ebcc = $(`<div id="html_c79a6873ef1a24d76674c66436f8ebcc" style="width: 100.0%; height: 100.0%;"><b>Damage level 3: 27 kPa</b><br>Trees and wood buildings flattened<br>Radius: 17.3 km<br>Population inside: 175,332</div>`)[0];
+                popup_8a41e71bea0283d6346a4ef3e11b883b.setContent(html_c79a6873ef1a24d76674c66436f8ebcc);
+            
+        
+
+        circle_902d1c6b1821792a40a69788715933a7.bindPopup(popup_8a41e71bea0283d6346a4ef3e11b883b)
+        ;
+
+        
+    
+    
+            circle_902d1c6b1821792a40a69788715933a7.bindTooltip(
+                `<div>
+                     Level 3: 27 kPa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_ccfd5cde970dac5c22f8d8e05e038a7c.addTo(map_8986cf87540be004156e3e18469536ee);
+        
+    
+            var feature_group_27eef7f6abf9c36d9a1be834c6e25c70 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_23d2e7abcf83f5cbd28058183a18baa4 = L.circle(
+                [50.17217640739274, -5.125723711593253],
+                {"bubblingMouseEvents": true, "color": "#bd0026", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bd0026", "fillOpacity": 0.25, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3232.8877264736666, "stroke": true, "weight": 2}
+            ).addTo(feature_group_27eef7f6abf9c36d9a1be834c6e25c70);
+        
+    
+        var popup_a04bb4cc324d7e41962e427bf66d8296 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_94cc6427f8df842c3d51432fc117cf36 = $(`<div id="html_94cc6427f8df842c3d51432fc117cf36" style="width: 100.0%; height: 100.0%;"><b>Damage level 4: 43 kPa</b><br>Multistorey brick buildings collapse<br>Radius: 3.2 km<br>Population inside: 16,142</div>`)[0];
+                popup_a04bb4cc324d7e41962e427bf66d8296.setContent(html_94cc6427f8df842c3d51432fc117cf36);
+            
+        
+
+        circle_23d2e7abcf83f5cbd28058183a18baa4.bindPopup(popup_a04bb4cc324d7e41962e427bf66d8296)
+        ;
+
+        
+    
+    
+            circle_23d2e7abcf83f5cbd28058183a18baa4.bindTooltip(
+                `<div>
+                     Level 4: 43 kPa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_27eef7f6abf9c36d9a1be834c6e25c70.addTo(map_8986cf87540be004156e3e18469536ee);
+        
+    
+            var marker_e6068d853d4372373849564764102c61 = L.marker(
+                [50.17217640739274, -5.125723711593253],
+                {
+}
+            ).addTo(map_8986cf87540be004156e3e18469536ee);
+        
+    
+            var icon_6cb0552d326ce04f08654db7a9757578 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "black",
+  "iconColor": "white",
+  "icon": "crosshairs",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b94908d452b4d8a2a9d2c6ea1784c73b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d7b89069c4b5c08b35b6c035b448fbc5 = $(`<div id="html_d7b89069c4b5c08b35b6c035b448fbc5" style="width: 100.0%; height: 100.0%;">Surface zero<br>50.1722, -5.1257</div>`)[0];
+                popup_b94908d452b4d8a2a9d2c6ea1784c73b.setContent(html_d7b89069c4b5c08b35b6c035b448fbc5);
+            
+        
+
+        marker_e6068d853d4372373849564764102c61.bindPopup(popup_b94908d452b4d8a2a9d2c6ea1784c73b)
+        ;
+
+        
+    
+    
+            marker_e6068d853d4372373849564764102c61.bindTooltip(
+                `<div>
+                     Surface zero
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_e6068d853d4372373849564764102c61.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_e6068d853d4372373849564764102c61.setIcon(icon_6cb0552d326ce04f08654db7a9757578);
+            
+    
+            map_8986cf87540be004156e3e18469536ee.fitBounds(
+                [[47.83343130104012, -8.777258811612239], [52.51092151374536, -1.4741886115742657]],
+                {}
+            );
+        
+    
+            var feature_group_cf334773cdae4770995b1f8bd31b65ff = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var polygon_182ec44d1b55d6c8dcd28fde0f75ed64 = L.polygon(
+                [[49.534045027792786, -7.570772939684332], [49.623652102320555, -7.6276749989728785], [49.713932277255935, -7.681773326874435], [49.80477973733916, -7.732988602172043], [49.8960878577734, -7.781243962897321], [49.987749313370756, -7.826465154643785], [50.079656188855076, -7.868580681415182], [50.171700090295296, -7.907521958705161], [50.26377225764339, -7.943223468467636], [50.35576367835151, -7.975622915600098], [50.447565202042384, -8.004661385524571], [50.539067656206136, -8.03028350241263], [50.630161962895066, -8.052437587562906], [50.72073925638539, -8.071075817400981], [50.81069100177229, -8.086154380534907], [50.89990911445999, -8.097633633262234], [50.98828608050469, -8.105478252889327], [51.07571507776207, -8.109657388190413], [51.16209009778468, -8.110144806301776], [51.24730606840767, -8.10691903531773], [51.331258976952626, -8.099963501828967], [51.41384599397069, -8.089266662621299], [51.494965597436035, -8.074822129734372], [51.574517697290496, -8.056628788065467], [51.6524037602284, -8.034690904694315], [51.72852693459896, -8.0090182291014], [51.80279217529084, -7.979626083453184], [51.87510636845038, -7.946535442136337], [51.94537845587155, -7.909772999737527], [52.01351955888157, -7.86937122668607], [52.079443101532675, -7.825368411806522], [52.14306493289589, -7.777808691061978], [52.204303448239365, -7.726742061814463], [52.263079708859635, -7.672224381977145], [52.31931756032169, -7.614317353492623], [52.372943748850396, -7.553088489635996], [52.423888035604776, -7.48861106571411], [52.47208330855555, -7.4209640528110015], [52.517465691676406, -7.350232034315212], [52.55997465115195, -7.276505105054895], [52.59955309829728, -7.199878752963599], [52.63614748888009, -7.120453723298795], [52.669707918531756, -7.0383358655399775], [52.7001882139329, -6.953635963198991], [52.72754601945912, -6.866469546883565], [52.75174287897512, -6.776956691063191], [52.77987146492448, -6.656508623872355], [52.80471464551564, -6.533939331264804], [52.826236116891685, -6.4094218225568795], [52.844404047961646, -6.2831329537807505], [52.85919115294953, -6.1552530685160605], [52.87057475566848, -6.025965624924112], [52.87853684520976, -5.895456810493613], [52.883064122769525, -5.763915146106484], [52.88414803937089, -5.631531081117345], [52.88178482427628, -5.498496581212862], [52.87597550392363, -5.365004710874274], [52.866725911261476, -5.231249212308455], [52.85404668539868, -5.097424082738826], [52.83795326152804, -4.9637231519566285], [52.81846585112524, -4.830339662026461], [52.795609412467826, -4.697465851016318], [52.769413611561355, -4.565292542583194], [52.739912773601326, -4.434008743189963], [52.70714582514003, -4.303801248660363], [52.67115622716639, -4.174854261694662], [52.63199189934381, -4.047349021873629], [52.5897051356858, -3.921463449570382], [52.54435251198158, -3.7973718050729417], [52.49599478531356, -3.6752443640949934], [52.44469678603516, -3.555247110719506], [52.39052730260135, -3.4375414486831914], [52.33355895966469, -3.32228393176851], [52.27386808986723, -3.2096260139272204], [52.21153459977218, -3.0997138196163974], [52.146641830390706, -2.9926879346866713], [52.07927641276648, -2.8886832180227486], [52.00952811908466, -2.7878286340022385], [51.93748970977455, -2.6902471057082664], [51.863256777072365, -2.59605538870926], [51.78692758550778, -2.505363965102987], [51.70860290976989, -2.418276957413809], [51.62838587040047, -2.334892061834779], [51.546381767750745, -2.255300500214986], [51.462697914624506, -2.179586990114103], [51.377443468017034, -2.1078297321754462], [51.29072926034186, -2.0401004140092027], [51.20266763052128, -1.976464229727327], [51.11337225529777, -1.9169799142310922], [51.02295798110496, -1.8616997913219961], [50.931540656817106, -1.81066983468412], [50.83923696767663, -1.763929740773591], [50.74616427067897, -1.7215130126453744], [50.65244043167494, -1.6834470537505126], [50.55818366443025, -1.6497532707460323], [50.463512371863345, -1.6204471843762178], [50.36854498966346, -1.595538547504873], [50.273399832472776, -1.5750314694051326], [50.1781949427987, -1.5589245454443983], [50.083047942805926, -1.5472109913366978], [49.98807588912106, -1.539878781172007], [49.89339513076851, -1.5369107884736763], [49.79912117034083, -1.5382849295760082], [49.705368528494, -1.5439743086589885], [49.61225061184569, -1.5539473638209245], [49.51987958434206, -1.5681680136157752], [49.42836624214909, -1.586595803526592], [49.33781989211354, -1.6091860518913563], [49.24834823383038, -1.6358899948428132], [49.16005724534502, -1.666654929865615], [49.073051072511134, -1.7014243576181798], [48.98743192201871, -1.740138121705911], [48.90329995810056, -1.7827325461327064], [48.82075320292037, -1.8291405701949657], [48.73988744064105, -1.879291880617643], [48.6607961251672, -1.9331130407669264], [48.58357029155316, -1.9905276168043429], [48.508298471063576, -2.0514563006791207], [48.435066609872116, -2.1158170298814696], [48.36395799138036, -2.183525103907357], [48.29505316213814, -2.254493297408345], [48.2284298613438, -2.3286319700225135], [48.16416295390235, -2.405849172902805], [48.102324367017715, -2.4860507519783823], [48.04298303029429, -2.5691404480002404], [47.98620481932266, -2.655019993438799], [47.93205250272284, -2.743589206314681], [47.880585692618475, -2.8347460810554423], [47.83186079851427, -2.9283868764834438], [47.78593098454894, -3.0244062010487767], [47.742846130095145, -3.1226970954299134], [47.70265279367756, -3.2231511126329053], [47.66539418017976, -3.325658395726265], [47.631110111310406, -3.4301077533537523], [47.59983699929829, -3.536386733173714], [47.57160782378583, -3.6443816933765447], [47.55289112158748, -3.72784841329522], [47.53731197481815, -3.8128758889725987], [47.52488591058901, -3.8993748298019852], [47.51562476919369, -3.987254817172044], [47.509536702979084, -4.0764243526109], [47.50662617906024, -4.166790905283619], [47.50689398583817, -4.258260958985318], [47.510337243276695, -4.35074005877388], [47.51694941689082, -4.444132857388922], [47.526720335396874, -4.538343161605155], [47.53963621197119, -4.633273978670815], [47.55567966906201, -4.72882756298273], [47.574829766696, -4.824905463151879], [47.59706203421872, -4.921408569614044], [47.622348505405846, -5.018237162941801], [47.650657756879475, -5.115290963015042], [47.68195494976217, -5.212469179207801], [47.71620187449891, -5.3096705617504085], [47.753356998775985, -5.406793454425696], [47.7933755184637, -5.503735848758822], [47.83620941150871, -5.600395439859568], [47.881807494700695, -5.6966696840761415], [47.930115483236776, -5.792455858617473], [47.98107605300696, -5.887651123301623], [48.034628905522545, -5.982152584583844], [48.09071083541041, -6.075857362017501], [48.14925580039469, -6.168662657296693], [48.210194993688845, -6.260465826026746], [48.273456918720996, -6.351164452363889], [48.33896746611624, -6.44065642666024], [48.40664999286088, -6.528840026244808], [48.476425403574645, -6.615613999463136], [48.548212233818525, -6.700877653091396], [48.621926735367474, -6.784530943230777], [48.697482963379585, -6.866474569777807], [48.7747928653949, -6.946610074555508], [48.85376637210009, -7.024839943175948], [48.93431148979715, -7.101067710692206], [49.01633439451732, -7.175198071080644], [49.099739527724246, -7.247136990578269], [49.184429693552865, -7.316791824880454], [49.27030615753433, -7.384071440184613], [49.357268746759, -7.448886338043138], [49.445215951433894, -7.511148783965524]],
+                {"bubblingMouseEvents": true, "color": "#fecc5c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fecc5c", "fillOpacity": 0.25, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(feature_group_cf334773cdae4770995b1f8bd31b65ff);
+        
+    
+        var popup_1688ccd313cf7263871293a17c9fa958 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4eb7b22d84348f2ebcc1a03492ba82c3 = $(`<div id="html_4eb7b22d84348f2ebcc1a03492ba82c3" style="width: 100.0%; height: 100.0%;"><b>Damage level 1: 1 kPa</b><br>About 10% of glass windows shatter<br>Semi-axes: 308.8 km across, 189.1 km ahead, 248.9 km behind<br>Population inside: 6,571,599</div>`)[0];
+                popup_1688ccd313cf7263871293a17c9fa958.setContent(html_4eb7b22d84348f2ebcc1a03492ba82c3);
+            
+        
+
+        polygon_182ec44d1b55d6c8dcd28fde0f75ed64.bindPopup(popup_1688ccd313cf7263871293a17c9fa958)
+        ;
+
+        
+    
+    
+            polygon_182ec44d1b55d6c8dcd28fde0f75ed64.bindTooltip(
+                `<div>
+                     Level 1: 1 kPa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_cf334773cdae4770995b1f8bd31b65ff.addTo(map_8986cf87540be004156e3e18469536ee);
+        
+    
+            var feature_group_352eb1e0d83feec4940dacae8189e459 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var polygon_f25c0931937c2f78ab9078f29edfaa5d = L.polygon(
+                [[49.945381567370205, -6.025054689152967], [49.97834439763609, -6.044913912462562], [50.011544528053946, -6.063684575059057], [50.04494205162449, -6.081341798650158], [50.07849679977203, -6.097861934471609], [50.11216838867194, -6.113222601778602], [50.145916265938084, -6.1274027254229395], [50.179699757626366, -6.140382572427455], [50.21347811551007, -6.1521437874675655], [50.2472105645815, -6.162669427166719], [50.28085635073419, -6.171943993111739], [50.3143747885786, -6.179953463491728], [50.34772530934386, -6.186685323263731], [50.38086750881729, -6.192128592747366], [50.4137611952721, -6.1962738545500144], [50.44636643733358, -6.199113278724155], [50.47864361173276, -6.200640646059696], [50.51055345089585, -6.200851369413158], [50.542057090316966, -6.199742512979242], [50.573116115660994, -6.197312809409908], [50.603692609542115, -6.193562674689645], [50.633749197923756, -6.188494220678223], [50.66324909608374, -6.182111265234909], [50.69215615408904, -6.174419339842501], [50.72043490172274, -6.165425694653663], [50.74805059280607, -6.1551393008866455], [50.77496924885742, -6.143570850503124], [50.80115770202992, -6.130732753106344], [50.82658363726891, -6.116639130004614], [50.85121563363003, -6.10130580539132], [50.8750232046989, -6.084750294600383], [50.89797683805309, -6.066991789403659], [50.92004803370687, -6.048051140324503], [50.94120934147995, -6.027950835951003], [50.96143439723125, -6.006714979240144], [50.98069795789932, -5.9843692608141055], [50.99897593529177, -5.960940929258811], [51.016245428566464, -5.936458758444701], [51.03248475534864, -5.910953011899068], [51.04767348142842, -5.8844554042697155], [51.06179244898524, -5.856999059928853], [51.074823803286556, -5.828618468776824], [51.08675101780992, -5.799349439314682], [51.09755891773923, -5.769229049064535], [51.10723370178807, -5.738295592425999], [51.115762962304714, -5.7065885260668665], [51.12564872458106, -5.663994253850603], [51.134358791497135, -5.620713519895418], [51.1418818328156, -5.576801969303375], [51.14820801584822, -5.532316173033223], [51.153329020947, -5.487313543092455], [51.15723805486309, -5.441852245904357], [51.15992986193938, -5.395991114048371], [51.1614007331055, -5.349789556579225], [51.16164851265032, -5.303307468136666], [51.160672602749926, -5.256605137061058], [51.158473965735425, -5.209743152735626], [51.15505512408883, -5.162782312377715], [51.15042015816061, -5.115783527503851], [51.14457470160769, -5.068807730294566], [51.13752593455515, -5.021915780083958], [51.12928257449088, -4.975168370198475], [51.11985486490624, -4.928625935366995], [51.10925456170206, -4.8823485599206435], [51.097494917383294, -4.836395886997195], [51.08459066307082, -4.790827028959711], [51.070557988363845, -4.745700479232454], [51.05541451909058, -4.70107402575087], [51.03917929298954, -4.657004666214732], [51.021872733368184, -4.6135485253244894], [51.00351662078965, -4.570760774172754], [50.98413406284211, -4.528695551952353], [50.96374946204954, -4.48740589013218], [50.942388481985425, -4.446943639242136], [50.92007801165483, -4.407359398396295], [50.896846128213205, -4.368702447672632], [50.8727220580926, -4.331020683455819], [50.84773613660921, -4.294360556837717], [50.821919766127834, -4.258767015158128], [50.79530537286128, -4.224283446756431], [50.76792636238422, -4.190951628993275], [50.739817073942575, -4.158811679588467], [50.71101273364092, -4.127902011311136], [50.68154940659097, -4.09825929004549], [50.65146394810537, -4.0699183962451], [50.62079395402136, -4.042912389778053], [50.58957771023882, -4.017272478153842], [50.55785414155774, -3.9930279881147897], [50.525662759899575, -3.970206340563408], [50.49304361199664, -3.9488330287899203], [50.46003722663319, -3.9289315999544385], [50.42668456152081, -3.910523639771384], [50.39302694989002, -3.8936287603361563], [50.35910604687859, -3.8782645910276585], [50.32496377579602, -3.8644467724140554], [50.29064227434201, -3.8521889530837825], [50.256183840855286, -3.8415027893194065], [50.221630880667355, -3.832397947527369], [50.18702585263414, -3.824882109333174], [50.152411215916565, -3.818960979248942], [50.11782937707883, -3.8146382948172004], [50.08332263757158, -3.8119158391336896], [50.04893314166497, -3.810793455649957], [50.0147028248943, -3.8112690651564094], [49.980673363078594, -3.8133386848454904], [49.94688612197112, -3.81699644935523], [49.91338210759735, -3.822234633693995], [49.88020191733502, -3.8290436779479933], [49.84738569178735, -3.837412213674753], [49.81497306749952, -3.847327091887138], [49.783003130565234, -3.858773412534987], [49.75151437116869, -3.8717345553931466], [49.720544639104766, -3.8861922122679857], [49.69013110031832, -3.9021264204363035], [49.66031019450078, -3.9195155972345788], [49.6311175937812, -3.9383365757187505], [49.602588162545594, -3.958564641318759], [49.5747559184175, -3.9801735694147737], [49.547653994429986, -4.003135663766159], [49.52131460241763, -4.027421795727491], [49.49576899765556, -4.053001444189562], [49.47104744476973, -4.079842736186919], [49.44717918494213, -4.107912488117364], [49.424192404431935, -4.13717624752195], [49.40211420443228, -4.167598335378472], [49.3809705722808, -4.199141888863949], [49.360786354040165, -4.231768904545731], [49.34158522846383, -4.265440281964288], [49.32338968235996, -4.300115867573481], [49.30622098736601, -4.335754499008345], [49.29009917814419, -4.372314049651948], [49.27504303200709, -4.409751473477655], [49.2610700499817, -4.448022850144611], [49.24819643931805, -4.487083430327488], [49.23643709744845, -4.526887681264213], [49.22580559740123, -4.567389332507446], [49.21873591828963, -4.598730613192885], [49.2128205575466, -4.630693150409229], [49.208066218322905, -4.6632400496141315], [49.20447821201609, -4.69633381015376], [49.20206045398759, -4.7299363610517275], [49.200815460868576, -4.76400909708525], [49.200744349448826, -4.79851291514845], [49.201846837142284, -4.833408250903261], [49.20412124402073, -4.868655115718923], [49.207564496406206, -4.904213133901976], [49.21217213201122, -4.940041580218974], [49.21793830661431, -4.976099417714579], [49.22485580225776, -5.012345335827547], [49.232916036952425, -5.048737788807358], [49.24210907587398, -5.085235034434106], [49.25242364403308, -5.1217951730437505], [49.263847140401616, -5.158376186860295], [49.27636565347547, -5.194935979636256], [49.28996397825334, -5.231432416601308], [49.30462563461035, -5.267823364718737], [49.32033288704398, -5.304066733247481], [49.33706676576887, -5.340120514606923], [49.35480708913626, -5.375942825539568], [49.37353248735307, -5.411491948565583], [49.393220427474205, -5.446726373721333], [49.4138472396417, -5.481604840571549], [49.4353881445426, -5.51608638048387], [49.45781728205764, -5.550130359150984], [49.48110774107115, -5.583696519344215], [49.50523159041256, -5.616745023879304], [49.530159910898924, -5.6492364987730355], [49.55586282844717, -5.681132076566001], [49.58230954822426, -5.71239343978425], [49.60946838980265, -5.7429828645097984], [49.63730682328795, -5.772863264026455], [49.66579150638524, -5.801998232504161], [49.69488832236924, -5.830352088682673], [49.72456241892379, -5.857889919510711], [49.75477824781502, -5.884577623694383], [49.78549960536196, -5.910381955104754], [49.81668967366798, -5.9352705659912885], [49.84831106257572, -5.9592120499436305], [49.88032585230785, -5.982175984541897], [49.91269563675469, -6.004132973631187]],
+                {"bubblingMouseEvents": true, "color": "#fd8d3c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fd8d3c", "fillOpacity": 0.25, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(feature_group_352eb1e0d83feec4940dacae8189e459);
+        
+    
+        var popup_c68e099b348d8a297f12748eb3377e45 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_50850ee3ff3a691ac5f814abebbdf4d3 = $(`<div id="html_50850ee3ff3a691ac5f814abebbdf4d3" style="width: 100.0%; height: 100.0%;"><b>Damage level 2: 3.5 kPa</b><br>About 90% of glass windows shatter<br>Semi-axes: 112.6 km across, 69.0 km ahead, 90.8 km behind<br>Population inside: 865,103</div>`)[0];
+                popup_c68e099b348d8a297f12748eb3377e45.setContent(html_50850ee3ff3a691ac5f814abebbdf4d3);
+            
+        
+
+        polygon_f25c0931937c2f78ab9078f29edfaa5d.bindPopup(popup_c68e099b348d8a297f12748eb3377e45)
+        ;
+
+        
+    
+    
+            polygon_f25c0931937c2f78ab9078f29edfaa5d.bindTooltip(
+                `<div>
+                     Level 2: 3.5 kPa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_352eb1e0d83feec4940dacae8189e459.addTo(map_8986cf87540be004156e3e18469536ee);
+        
+    
+            var feature_group_dbe95c83c8cbb9bb85f45a8a8918d228 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var polygon_98af6e5fe296548d485e35d65a81f07d = L.polygon(
+                [[50.13122247781469, -5.2908189820361144], [50.13727342149937, -5.294370187419162], [50.14336693522225, -5.297716949945965], [50.14949561283014, -5.300855121467009], [50.15565200454058, -5.303780803974746], [50.16182862593463, -5.3064903547119116], [50.168017966995905, -5.308980390987074], [50.1742125011854, -5.31124779468982], [50.18040469454135, -5.313289716497707], [50.18658701479333, -5.315103579768447], [50.192751940479944, -5.316687084110271], [50.198891970059165, -5.318038208624216], [50.20499963100062, -5.319155214811872], [50.21106748884886, -5.32003664914356], [50.21708815624692, -5.320681345280832], [50.2230543019092, -5.321088425949114], [50.228958659533006, -5.321257304455372], [50.234794036637986, -5.3211876858472635], [50.24055332332268, -5.320879567709767], [50.24622950092768, -5.320333240596483], [50.25181565059482, -5.319549288092674], [50.25730496171177, -5.318528586508194], [50.262690740232095, -5.317272304198298], [50.26796641685997, -5.315781900511581], [50.273125555090104, -5.3140591243643485], [50.27816185909212, -5.31210601244112], [50.28306918143056, -5.30992488702222], [50.28784153060984, -5.307518353439292], [50.29247307843558, -5.3048892971602015], [50.2969581671824, -5.302040880506098], [50.301291316559585, -5.298976539002865], [50.30546723046541, -5.295699977370731], [50.309480803521886, -5.292215165155653], [50.31332712738113, -5.288526332007564], [50.31700149679575, -5.284637962610049], [50.32049941544493, -5.280554791267605], [50.32381660150902, -5.276281796156383], [50.32694899298511, -5.271824193245777], [50.32989275273673, -5.267187429897774], [50.332644273271185, -5.262377178152491], [50.33520018123778, -5.2573993277081], [50.337557341641364, -5.252259978604428], [50.33971286176531, -5.246965433619636], [50.34166409479868, -5.241522190390356], [50.34340864316276, -5.2359369332653785], [50.34494436153216, -5.2302165249045345], [50.34672191131584, -5.2225372947584106], [50.34828634078611, -5.214739135218082], [50.34963572110107, -5.206831641093004], [50.35076838706112, -5.198824545152291], [50.35168293924251, -5.190727705780546], [50.35237824579833, -5.1825510944594555], [50.352853443924566, -5.174304783092481], [50.353107940988735, -5.165998931191211], [50.3531414153194, -5.157643772941469], [50.3529538166554, -5.149249604167579], [50.35254536625379, -5.140826769213987], [50.351916556656235, -5.132385647762362], [50.35106815111388, -5.123936641604104], [50.35000118267139, -5.115490161386418], [50.34871695291099, -5.107056613351489], [50.347217030358415, -5.0986463860878075], [50.34550324855223, -5.090269837312491], [50.34357770377944, -5.081937280703443], [50.34144275248013, -5.073658972800644], [50.33910100832433, -5.065445099994349], [50.336555338965326, -5.057305765619617], [50.33380886247333, -5.04925097717441], [50.33086494345435, -5.041290633680035], [50.327727188859534, -5.0334345132008025], [50.3243994434903, -5.025692260540893], [50.320885785205455, -5.018073375134577], [50.31719051983668, -5.0105871991471815], [50.3133181758189, -5.003242905802068], [50.309273498543064, -4.9960494879498185], [50.30506144443863, -4.989015746894523], [50.3006871747938, -4.982150281491926], [50.29615604932151, -4.975461477533628], [50.29147361948002, -4.968957497430466], [50.28664562155687, -4.962646270208921], [50.281677969525234, -4.956535481832077], [50.276576747682476, -4.950632565857518], [50.271348203080365, -4.944944694443336], [50.26599873775706, -4.939478769712423], [50.26053490078107, -4.934241415485502], [50.2549633801178, -4.929238969391889], [50.24929099432913, -4.924477475366729], [50.243524684116935, -4.919962676542724], [50.23767150372181, -4.915700008543439], [50.23173861218782, -4.911694593185359], [50.22573326450495, -4.907951232594144], [50.21966280264045, -4.904474403740778], [50.21353464647071, -4.901268253402208], [50.20735628462547, -4.898336593550482], [50.20113526525569, -4.895682897173884], [50.194879186737296, -4.8933102945326254], [50.1885956883223, -4.891221569851382], [50.18229244074913, -4.88941915845021], [50.175977136824194, -4.887905144314516], [50.169657481986384, -4.886681258104716], [50.16334118486609, -4.885748875605088], [50.15703594785092, -4.885109016610784], [50.15074945766931, -4.884762344252124], [50.144489376004145, -4.884709164753758], [50.138263330147325, -4.884949427626452], [50.13207890370735, -4.885482726288387], [50.125943627380614, -4.88630829911267], [50.11986496979796, -4.887425030897077], [50.1138503284575, -4.888831454751454], [50.10790702075434, -4.890525754398112], [50.10204227511815, -4.89250576688022], [50.09626322226902, -4.894768985671732], [50.09057688660192, -4.897312564183949], [50.084990177709905, -4.900133319661165], [50.079509882056016, -4.903227737459588], [50.07414265480358, -4.906591975701787], [50.06889501181423, -4.910221870299608], [50.06377332182313, -4.9141129403377874], [50.0587837988002, -4.918260393810158], [50.053932494506014, -4.922659133700421], [50.04922529125101, -4.927303764398715], [50.04466789486609, -4.9321885984454354], [50.04026582789237, -4.937307663593316], [50.03602442299806, -4.942654710178402], [50.03194881662935, -4.948223218790929], [50.028043942902734, -4.954006408236097], [50.0243145277451, -4.959997243775348], [50.02076508328848, -4.96618844563821], [50.017399902524986, -4.972572497794431], [50.014223054228275, -4.9791416569766795], [50.01123837814652, -4.98588796194295], [50.00844948047256, -4.992803242968705], [50.005859729595386, -4.999879131558089], [50.00347225213813, -5.007107070363475], [50.00128992928619, -5.0144783233024555], [49.9993153934096, -5.021983985862079], [49.99800052568765, -5.027795772751631], [49.996897617685356, -5.033726141881999], [49.99600799551658, -5.039767938860052], [49.995332726236825, -5.045913877392593], [49.99487261662403, -5.0521565478031505], [49.99462821227234, -5.058488425683009], [49.99459979699946, -5.064901880666639], [49.994787392568, -5.071389185323653], [49.99519075872095, -5.077942524157777], [49.99580939353073, -5.08455400270401], [49.99664253406132, -5.091215656715093], [49.99768915734229, -5.097919461427637], [49.99894798165343, -5.104657340899394], [50.000417468118144, -5.111421177407806], [50.00209582260366, -5.118202820900507], [50.00398099792527, -5.124994098488884], [50.006070696352396, -5.1317868239744655], [50.008362372412776, -5.1385728073991], [50.01085323599172, -5.145343864609032], [50.01354025572248, -5.15209182682338], [50.0164201626638, -5.158808550197108], [50.019489454259926, -5.165485925368699], [50.02274439857884, -5.172115886982965], [50.026181038823154, -5.178690423178551], [50.02979519810877, -5.185201585030967], [50.03358248450538, -5.191641495940274], [50.03753829633308, -5.198002360954263], [50.041657827708775, -5.204276476016503], [50.04593607433599, -5.210456237129506], [50.050367839531276, -5.216534149422756], [50.05494774048021, -5.222502836115751], [50.05967021471576, -5.228355047365682], [50.06452952681143, -5.2340836689899675], [50.06951977528152, -5.239681731053338], [50.07463489968044, -5.245142416309562], [50.079868687892834, -5.2504590684878565], [50.08521478360618, -5.255625200413903], [50.09066669395711, -5.2606345019556215], [50.09621779734269, -5.265480847783891], [50.10186135138754, -5.270158304938434], [50.10759050105768, -5.274661140189323], [50.1133982869115, -5.278983827184163], [50.119277653478555, -5.283121053372128], [50.12522145775627, -5.287067726694943]],
+                {"bubblingMouseEvents": true, "color": "#f03b20", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f03b20", "fillOpacity": 0.25, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(feature_group_dbe95c83c8cbb9bb85f45a8a8918d228);
+        
+    
+        var popup_8b7f310b14b8a946cb806fdf083bf03e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dc589ece80cd6b9de3a01081959a46e6 = $(`<div id="html_dc589ece80cd6b9de3a01081959a46e6" style="width: 100.0%; height: 100.0%;"><b>Damage level 3: 27 kPa</b><br>Trees and wood buildings flattened<br>Semi-axes: 20.6 km across, 12.6 km ahead, 16.6 km behind<br>Population inside: 165,823</div>`)[0];
+                popup_8b7f310b14b8a946cb806fdf083bf03e.setContent(html_dc589ece80cd6b9de3a01081959a46e6);
+            
+        
+
+        polygon_98af6e5fe296548d485e35d65a81f07d.bindPopup(popup_8b7f310b14b8a946cb806fdf083bf03e)
+        ;
+
+        
+    
+    
+            polygon_98af6e5fe296548d485e35d65a81f07d.bindTooltip(
+                `<div>
+                     Level 3: 27 kPa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_dbe95c83c8cbb9bb85f45a8a8918d228.addTo(map_8986cf87540be004156e3e18469536ee);
+        
+    
+            var feature_group_97604dc950246a1e99715e0f3d898df4 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var polygon_2029bdb4fe446f208bdeea7086463e92 = L.polygon(
+                [[50.164561665104216, -5.156513577682176], [50.16569013627842, -5.157172632359391], [50.166826511626, -5.157793406901334], [50.167969407266874, -5.158375142515013], [50.16911743134905, -5.158917127833234], [50.1702691857417, -5.159418699794173], [50.17142326773559, -5.159879244462445], [50.172578271749686, -5.160298197790894], [50.173732791041154, -5.160675046322268], [50.17488541941707, -5.161009327829362], [50.17603475294566, -5.161300631893312], [50.17717939166497, -5.161548600418968], [50.178317941286856, -5.161752928086685], [50.17944901489446, -5.161913362739938], [50.18057123463073, -5.162029705708164], [50.18168323337626, -5.162101812064492], [50.18278365641433, -5.162129590817813], [50.18387116308087, -5.162113005038918], [50.184944428397834, -5.162052071920556], [50.18600214468744, -5.161946862771231], [50.187043023165835, -5.161797502942562], [50.18806579551372, -5.1616041716904135], [50.18906921542254, -5.161367101969745], [50.190052060113885, -5.161086580163413], [50.19101313183062, -5.160762945745347], [50.19195125929762, -5.16039659087798], [50.192865299150576, -5.159987959945113], [50.193754137330906, -5.159537549019973], [50.19461669044529, -5.159045905269551], [50.19545190708788, -5.1585136262958144], [50.19625876912383, -5.1579413594143375], [50.19703629293245, -5.157329800871537], [50.19778353060842, -5.156679695001088], [50.19849957111964, -5.155991833320883], [50.199183541420304, -5.155267053571265], [50.19983460751778, -5.1545062386958875], [50.20045197549208, -5.153710315766574], [50.201034892466424, -5.152880254853017], [50.20158264752809, -5.152017067839296], [50.2020945725979, -5.1511218071881615], [50.202570043247874, -5.150195564654922], [50.2030084794654, -5.149239469952249], [50.20340934636355, -5.1482546893679455], [50.20377215483616, -5.147242424336923], [50.204096462157274, -5.146203909969614], [50.204381872523925, -5.145140413538087], [50.204712146116854, -5.143712922702207], [50.205002763862176, -5.142263481145733], [50.20525337090143, -5.140793858031543], [50.20546366117941, -5.139305847272709], [50.20563337782066, -5.137801265330211], [50.205762313445696, -5.136281948982628], [50.205850310426655, -5.134749753070253], [50.205897261081844, -5.133206548216776], [50.20590310780941, -5.13165421853131], [50.20586784315936, -5.130094659293661], [50.205791509844246, -5.128529774625434], [50.205674200688385, -5.126961475150694], [50.205516058515634, -5.12539167564816], [50.205317275975816, -5.123822292698719], [50.20507809531015, -5.122255242330596], [50.20479880805583, -5.120692437665639], [50.204479754690176, -5.119135786569359], [50.20412132421485, -5.117587189307727], [50.20372395368042, -5.116048536213867], [50.203288127652236, -5.114521705367338], [50.20281437761786, -5.113008560289046], [50.20230328133722, -5.111510947654693], [50.20175546213574, -5.110030695029536], [50.20117158814195, -5.108569608627391], [50.20055237147004, -5.107129471096528], [50.19989856734856, -5.105712039335458], [50.19921097319635, -5.104319042341274], [50.19849042764682, -5.102952179092739], [50.197737809521776, -5.101613116471725], [50.196954036756054, -5.100303487224579], [50.19614006527441, -5.099024887966607], [50.195296887821826, -5.097778877231804], [50.194425532748895, -5.096566973570333], [50.19352706275382, -5.095390653696143], [50.19260257358227, -5.094251350686875], [50.19165319268707, -5.093150452238376], [50.190680077849144, -5.092089298975765], [50.189684415761626, -5.091069182823418], [50.18866742057855, -5.090091345435411], [50.187630332430395, -5.089156976688685], [50.186574415907835, -5.088267213240641], [50.18550095851585, -5.087423137152655], [50.18441126910018, -5.086625774581478], [50.18330667624769, -5.085876094539913], [50.182188526663005, -5.085175007728196], [50.1810581835233, -5.084523365437491], [50.17991702481309, -5.0839219585267585], [50.1787664416414, -5.083371516474273], [50.177607836542975, -5.082872706504645], [50.176442621766085, -5.082426132792534], [50.17527221754864, -5.082032335743918], [50.17409805038492, -5.081691791355581], [50.17292155128498, -5.081404910653703], [50.171744154028985, -5.081172039211879], [50.17056729341836, -5.080993456749496], [50.16939240352618, -5.080869376810256], [50.16822091594879, -5.080799946521779], [50.16705425806075, -5.080785246435994], [50.16589385127532, -5.08082529045069], [50.16474110931268, -5.080920025812105], [50.16359743647772, -5.0810693331985135], [50.162464225949854, -5.08127302688456], [50.16134285808662, -5.08153085498617], [50.160234698743366, -5.081842499785495], [50.15914109761087, -5.082207578135325], [50.15806338657315, -5.082625641942968], [50.1570028780871, -5.0830961787319495], [50.15596086358629, -5.083618612281782], [50.154938611910715, -5.084192303344196], [50.15393736776417, -5.084816550435306], [50.15295835020147, -5.0854905907025625], [50.15200275114725, -5.086213600865335], [50.151071733947816, -5.086984698227923], [50.15016643195833, -5.087802941763869], [50.14928794716651, -5.088667333269939], [50.14843734885485, -5.089576818588654], [50.14761567230278, -5.090530288897497], [50.14682391753047, -5.091526582063551], [50.14606304808559, -5.092564484061597], [50.14533398987471, -5.0936427304542065], [50.144637630040464, -5.094760007931683], [50.14397481588618, -5.095914955910473], [50.14334635384885, -5.0971061681875085], [50.142753008521986, -5.098332194649004], [50.14219550172942, -5.09959154303138], [50.141674511651026, -5.1008826807321554], [50.141190672001684, -5.102204036668809], [50.14074457126413, -5.103554003183405], [50.140336751976946, -5.104930937990417], [50.139967710078125, -5.1063331661657685], [50.139721896909755, -5.107419070687456], [50.1395156159762, -5.108527251102487], [50.139349117982356, -5.109656359739972], [50.139222605191726, -5.1108050235673375], [50.13913623118277, -5.111971845850434], [50.13909010066448, -5.11315540784193], [50.139084269351464, -5.114354270496051], [50.13911874389838, -5.115566976207447], [50.139193481894004, -5.116792050572457], [50.13930839191491, -5.118028004170327], [50.13946333363865, -5.119273334362617], [50.13965811801625, -5.120526527108467], [50.13989250750391, -5.121786058793617], [50.140166216353514, -5.1230503980712285], [50.14047891096167, -5.124318007711821], [50.14083021027676, -5.125587346461003], [50.1412196862636, -5.126856870901776], [50.141646864425155, -5.12812503732016], [50.142111224380436, -5.129390303571256], [50.14261220049824, -5.13065113094396], [50.1431491825857, -5.131905986021991], [50.14372151663086, -5.133153342538776], [50.14432850559847, -5.134391683224578], [50.14496941027788, -5.1356195016430775], [50.145643450182185, -5.136835304015648], [50.1463498044974, -5.13803761103091], [50.1470876130805, -5.139224959637488], [50.147855977505294, -5.140395904817893], [50.14865396215464, -5.141549021341291], [50.14948059535785, -5.142682905493274], [50.15033487057193, -5.143796176780228], [50.15121574760489, -5.144887479606467], [50.15212215388027, -5.14595548492224], [50.15305298574073, -5.146998891840269], [50.15400710978944, -5.148016429219183], [50.1549833642678, -5.149006857211674], [50.155980560467285, -5.149968968775795], [50.15699748417444, -5.15090159114709], [50.15803289714662, -5.151803587270479], [50.15908553861712, -5.152673857189171], [50.160154126827685, -5.153511339389837], [50.16123736058669, -5.154315012101847], [50.16233392085076, -5.155083894548966], [50.16344247232858, -5.155817048152215]],
+                {"bubblingMouseEvents": true, "color": "#bd0026", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bd0026", "fillOpacity": 0.25, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(feature_group_97604dc950246a1e99715e0f3d898df4);
+        
+    
+        var popup_b016ef1d54ea983a2a189740d459efb8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bbe59b13f8741afb11b50ddd09e84a6d = $(`<div id="html_bbe59b13f8741afb11b50ddd09e84a6d" style="width: 100.0%; height: 100.0%;"><b>Damage level 4: 43 kPa</b><br>Multistorey brick buildings collapse<br>Semi-axes: 3.8 km across, 2.4 km ahead, 3.1 km behind<br>Population inside: 19,606</div>`)[0];
+                popup_b016ef1d54ea983a2a189740d459efb8.setContent(html_bbe59b13f8741afb11b50ddd09e84a6d);
+            
+        
+
+        polygon_2029bdb4fe446f208bdeea7086463e92.bindPopup(popup_b016ef1d54ea983a2a189740d459efb8)
+        ;
+
+        
+    
+    
+            polygon_2029bdb4fe446f208bdeea7086463e92.bindTooltip(
+                `<div>
+                     Level 4: 43 kPa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_97604dc950246a1e99715e0f3d898df4.addTo(map_8986cf87540be004156e3e18469536ee);
+        
+    
+            var marker_2dcce28a97c3b8d6d4975404e46785ac = L.marker(
+                [50.17217640739274, -5.125723711593253],
+                {
+}
+            ).addTo(map_8986cf87540be004156e3e18469536ee);
+        
+    
+            var icon_6acd921d351b683468e3dc527fe88207 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "black",
+  "iconColor": "white",
+  "icon": "crosshairs",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d977a5d0e1868ed83c619c0fc2ccf09b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_16405268632b00f854613ad77b9d9666 = $(`<div id="html_16405268632b00f854613ad77b9d9666" style="width: 100.0%; height: 100.0%;">Surface zero<br>50.1722, -5.1257</div>`)[0];
+                popup_d977a5d0e1868ed83c619c0fc2ccf09b.setContent(html_16405268632b00f854613ad77b9d9666);
+            
+        
+
+        marker_2dcce28a97c3b8d6d4975404e46785ac.bindPopup(popup_d977a5d0e1868ed83c619c0fc2ccf09b)
+        ;
+
+        
+    
+    
+            marker_2dcce28a97c3b8d6d4975404e46785ac.bindTooltip(
+                `<div>
+                     Surface zero
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_2dcce28a97c3b8d6d4975404e46785ac.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_2dcce28a97c3b8d6d4975404e46785ac.setIcon(icon_6acd921d351b683468e3dc527fe88207);
+            
+    
+            var layer_control_a8fee42a8669440bd0e8782762f0274f_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_4e487ec28b67dacec0a984daeb2c3fe2,
+                },
+                overlays :  {
+                    "Level 1: 1 kPa (circle)" : feature_group_2e616c52004e520995721df2ff60ef1c,
+                    "Level 2: 3.5 kPa (circle)" : feature_group_927cd9cdb839b0593838e8f6960d80c1,
+                    "Level 3: 27 kPa (circle)" : feature_group_ccfd5cde970dac5c22f8d8e05e038a7c,
+                    "Level 4: 43 kPa (circle)" : feature_group_27eef7f6abf9c36d9a1be834c6e25c70,
+                    "Level 1: 1 kPa (ellipse)" : feature_group_cf334773cdae4770995b1f8bd31b65ff,
+                    "Level 2: 3.5 kPa (ellipse)" : feature_group_352eb1e0d83feec4940dacae8189e459,
+                    "Level 3: 27 kPa (ellipse)" : feature_group_dbe95c83c8cbb9bb85f45a8a8918d228,
+                    "Level 4: 43 kPa (ellipse)" : feature_group_97604dc950246a1e99715e0f3d898df4,
+                },
+            };
+            let layer_control_a8fee42a8669440bd0e8782762f0274f = L.control.layers(
+                layer_control_a8fee42a8669440bd0e8782762f0274f_layers.base_layers,
+                layer_control_a8fee42a8669440bd0e8782762f0274f_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_8986cf87540be004156e3e18469536ee);
+
+        
+    
+            map_8986cf87540be004156e3e18469536ee.fitBounds(
+                [[47.39522286557537, -9.461443453571547], [52.94912994921011, -0.7900039696149586]],
+                {}
+            );
+        
+</script>
+</html>
